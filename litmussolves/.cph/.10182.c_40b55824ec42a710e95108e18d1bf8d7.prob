@@ -1,0 +1,1 @@
+{"name":"Local: 10182","url":"/home/maka/workspace/school-cpplang/litmussolves/10182.c","tests":[{"id":1727611886597,"input":"5\n4 4 1 3 -8","output":"4 -8"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/school-cpplang/litmussolves/10182.c","group":"local","local":true}

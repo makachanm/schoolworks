@@ -1,0 +1,1 @@
+{"name":"Local: 11773","url":"/home/maka/workspace/litmussolves/BasicCPP/11773.cpp","tests":[{"id":1733206507110,"input":"5\n4 1 5 2 3\n5\n1 3 7 9 5","output":"1\n1\n0\n0\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/litmussolves/BasicCPP/11773.cpp","group":"local","local":true}

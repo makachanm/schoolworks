@@ -1,0 +1,1 @@
+{"name":"Local: 11326","url":"/home/maka/workspace/litmussolves/BasicCPP/11326.cpp","tests":[{"id":1731574091865,"input":"","output":"1 2 3 4 5\n2 3 4\n2 3 4 5 6\nWrong dimension\n3 5 7 9 11\n6 8 10 12 14\n6 8 10 12 14"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/litmussolves/BasicCPP/11326.cpp","group":"local","local":true}

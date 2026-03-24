@@ -1,0 +1,60 @@
+[H[2J[3JSystem Info Readed!
+Virtual Page Table Initing... PID 0 / REFLEN 30
+Virtual Page Table Initing... PID 1 / REFLEN 40
+Virtual Page Table Initing... PID 2 / REFLEN 50
+Process Read Complete!
+Physical Frame Inited!
+Process Excution Started!
+Valid page 6 access in PID 2
+Valid page 3 access in PID 1
+Valid page 28 access in PID 1
+Valid page 15 access in PID 2
+Valid page 0 access in PID 0
+Valid page 4 access in PID 1
+Valid page 1 access in PID 0
+Valid page 4 access in PID 0
+Valid page 20 access in PID 2
+Valid page 17 access in PID 1
+Valid page 1 access in PID 0
+Valid page 30 access in PID 2
+Valid page 0 access in PID 0
+Valid page 9 access in PID 1
+Valid page 1 access in PID 0
+Valid page 19 access in PID 1
+Valid page 26 access in PID 2
+Valid page 1 access in PID 0
+Valid page 7 access in PID 1
+Valid page 23 access in PID 2
+Valid page 8 access in PID 1
+Valid page 29 access in PID 2
+Valid page 30 access in PID 2
+Valid page 19 access in PID 0
+Valid page 26 access in PID 1
+Valid page 15 access in PID 2
+Valid page 31 access in PID 2
+Valid page 15 access in PID 0
+Valid page 4 access in PID 1
+Valid page 3 access in PID 2
+Valid page 6 access in PID 2
+Valid page 2 access in PID 1
+Valid page 28 access in PID 2
+Valid page 26 access in PID 2
+Valid page 28 access in PID 1
+Valid page 28 access in PID 1
+Valid page 28 access in PID 1
+Valid page 28 access in PID 2
+Valid page 3 access in PID 1
+Valid page 28 access in PID 2
+Valid page 2 access in PID 1
+Valid page 23 access in PID 2
+Valid page 16 access in PID 2
+Valid page 7 access in PID 2
+Valid page 19 access in PID 2
+Valid page 19 access in PID 2
+Valid page 8 access in PID 2
+Valid page 14 access in PID 2
+Valid page 6 access in PID 2
+*** Process 0: Allocated Frame: 19, PageFault/References=21/22
+*** Process 1: Allocated Frame: 20, PageFault/References=24/32
+*** Process 2: Allocated Frame: 23, PageFault/References=26/46
+Total: Allocated Frames=62 Page Faults/References=71/100

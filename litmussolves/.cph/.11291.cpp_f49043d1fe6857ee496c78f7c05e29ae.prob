@@ -1,0 +1,1 @@
+{"name":"Local: 11291","url":"/home/maka/workspace/litmussolves/11291.cpp","tests":[{"id":1728642565248,"input":"1 2","output":"12.56 12.56\n6.28 3.14"},{"id":1728642573713,"input":"2 1","output":"6.28 3.14\n12.56 12.56"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/litmussolves/11291.cpp","group":"local","local":true}

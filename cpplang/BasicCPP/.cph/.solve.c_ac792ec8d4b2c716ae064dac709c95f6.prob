@@ -1,0 +1,1 @@
+{"name":"Local: solve","url":"/home/maka/workspace/school-cpplang/BasicCPP/solve.c","tests":[{"id":1727598733962,"input":"a f","output":"b c d e"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/school-cpplang/BasicCPP/solve.c","group":"local","local":true}

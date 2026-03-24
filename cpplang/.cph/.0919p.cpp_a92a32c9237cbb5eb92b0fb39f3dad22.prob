@@ -1,0 +1,1 @@
+{"name":"Local: 0919p","url":"/home/maka/workspace/school-cpplang/0919p.cpp","tests":[{"id":1726729486103,"input":"15","output":"90"},{"id":1726729514077,"input":"100","output":"4000"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/school-cpplang/0919p.cpp","group":"local","local":true}

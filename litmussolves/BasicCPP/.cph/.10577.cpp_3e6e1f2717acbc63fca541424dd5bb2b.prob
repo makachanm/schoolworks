@@ -1,0 +1,1 @@
+{"name":"Local: 10577","url":"/home/maka/workspace/litmussolves/BasicCPP/10577.cpp","tests":[{"id":1729176532006,"input":"1234-5678 5000 100000","output":"acc_num : 1234-5678\nbalance : 5000\ntrans_limit : 100000"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/litmussolves/BasicCPP/10577.cpp","group":"local","local":true}

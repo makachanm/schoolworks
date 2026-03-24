@@ -1,0 +1,1 @@
+{"name":"Local: 10700","url":"/home/maka/workspace/litmussolves/Algorithms/10700.cpp","tests":[{"id":1758365741241,"input":"10\n0 7 1 6 7 7 6 6 5 4","output":"1 2 2 2 3 4 7 10"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/litmussolves/Algorithms/10700.cpp","group":"local","local":true}

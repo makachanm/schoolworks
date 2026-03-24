@@ -1,0 +1,1 @@
+{"name":"Local: 12059","url":"/home/maka/workspace/litmussolves/DataStructure/12059.cpp","tests":[{"id":1748789812541,"input":"5\n12 13 21 48 52\n7  8 10 14 20\n9 11 26 28 32\n15 19 31 35 41\n5  6 16 25 49","output":"35"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/maka/workspace/litmussolves/DataStructure/12059.cpp","group":"local","local":true}

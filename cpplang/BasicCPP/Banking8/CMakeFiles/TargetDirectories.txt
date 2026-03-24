@@ -1,0 +1,3 @@
+/home/maka/workspace/school-cpplang/BasicCPP/Banking8/CMakeFiles/banking.dir
+/home/maka/workspace/school-cpplang/BasicCPP/Banking8/CMakeFiles/edit_cache.dir
+/home/maka/workspace/school-cpplang/BasicCPP/Banking8/CMakeFiles/rebuild_cache.dir

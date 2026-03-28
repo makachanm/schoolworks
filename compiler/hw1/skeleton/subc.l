@@ -28,20 +28,25 @@ int commentdepth=0;
 letter      [A-Za-z_]
 digit       [0-9]
 id  		{letter}({letter}|{digit})*
-op1         [+-=]
+op1         [-+=]
 op2 		(\(|\)|\{|\}|\;)
-operator	{op1}|{op2}
+op3         [\.\.]
+operator 	"->"|"<<"|">>"|"<="|">="|"=="|"!="|"&&"|"||"|"++"|"--"|"+="|"-="|"*="|"/="|"%="|"&="|"^="|"|="|"<<"|">>="|"..="|".."|[-+*/%&|^!<>={}()\[\],;.*]
 whitespace	[ \t\n]+
 
 %start AA BB
 %%
 
-<AA>{operator}  {}
+<AA>{operator}  { printf("OP\t%s\n", yytext); }
+<AA>auto|break|case|char|continue|default|do|double|else|extern|float|for|goto|if|int|long|register|return|short|sizeof|static|struct|switch|typedef|union|unsigned|void|while { printf("KEY\t%s\n", yytext); }
 
-<AA>{id}        {}
-<AA>"/*"        {}
-<BB>"/*"        {}
-
+<AA>{id}                                  { printf("ID\t%s\n", yytext); }
+<AA>"/*"                                  { commentdepth++; BEGIN BB; }
+<BB>"/*"                                  { commentdepth++; }
+<BB>"*/"	                                  { commentdepth--; if(commentdepth <= 0) { BEGIN AA; } }
+<AA>{digit}+/(\.\.)?                      { printf("INT\t%s\n", yytext); }
+<AA>{digit}+\.{digit}+([E][+-]?{digit}+)? { printf("F\t%s\n", yytext); }
+<AA,BB>.|{whitespace} ;
 %%
 
 

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacuum Sim :: Autonomous Cleaning RL Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f8fafc;
+            --bg-panel: #ffffff;
+            --border-color: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --danger: #ef4444;
+            --success: #10b981;
+            
+            /* Grid Colors */
+            --grid-bg: #f1f5f9;
+            --grid-line: #ffffff;
+            --cell-wall: #94a3b8;
+            --cell-wet: #e0f2fe;
+            --cell-cat: #fef08a;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px; 
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-container {
+            display: flex;
+            gap: 32px;
+            width: 1600px;
+            max-width: 95vw;
+            height: 750px;
+        }
+
+        .panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        #left-col {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #left-col .panel {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #right-col { 
+            display: flex; 
+            flex-direction: column; 
+            width: 320px; 
+            gap: 24px;
+            height: 100%;
+        }
+
+        .log-panel {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        canvas { 
+            border-radius: 8px;
+            background: var(--grid-bg);
+            /* Soft inner shadow to make grid look slightly recessed */
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+            margin: 0 auto;
+            display: block;
+        }
+
+        .card-header {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-main);
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .status-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .status-item {
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .status-item.full-width {
+            grid-column: span 2;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        button { 
+            padding: 14px 20px; 
+            cursor: pointer; 
+            border: 1px solid var(--border-color); 
+            background: #ffffff; 
+            color: var(--text-main); 
+            border-radius: 10px; 
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        button:hover { 
+            background: #f8fafc; 
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        button.primary { 
+            background: #0f172a; 
+            color: white; 
+            border-color: #0f172a;
+        }
+        button.primary:hover { 
+            background: #1e293b; 
+            border-color: #1e293b;
+        }
+        
+        button.accent { 
+            background: #eff6ff; 
+            color: #2563eb; 
+            border-color: #bfdbfe;
+        }
+        button.accent:hover { 
+            background: #dbeafe; 
+        }
+
+        button.active-toggle {
+            background: #fffbeb;
+            color: #d97706;
+            border-color: #fde68a;
+        }
+
+        #log { 
+            flex-grow: 1;
+            overflow-y: auto; 
+            background: #f8fafc; 
+            padding: 12px; 
+            font-family: 'Fira Code', monospace;
+            font-size: 11px; 
+            border-radius: 6px;
+            color: #475569;
+            line-height: 1.6;
+            border: 1px solid var(--border-color);
+        }
+
+        #log div { margin-bottom: 4px; }
+        #log div.error { color: var(--danger); }
+        #log div.system { color: var(--accent); font-weight: 500;}
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-color { width: 14px; height: 14px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.05);}
+    </style>
+</head>
+<body>
+    <div>
+        <div class="app-container">
+            <div id="left-col">
+                <div class="panel">
+                    <canvas id="gameCanvas" width="500" height="500"></canvas>
+                    <div class="legend">
+                        <div class="legend-item"><div class="legend-color" style="background:var(--cell-wall)"></div>Wall</div>
+                        <div class="legend-item"><div class="legend-color" style="background:var(--cell-wet)"></div>Wet Floor</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="right-col">
+                <div class="panel">
+                    <div class="card-header">Status</div>
+                    <div class="status-list">
+                        <div class="status-item full-width">
+                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; margin-bottom: 6px;">
+                                <span class="status-label">🔋 Battery</span>
+                                <span style="font-size: 13px; font-weight: 600; color: var(--text-main);" id="info-battery-text">-- / 100 Wh</span>
+                            </div>
+                            <div style="background: #cbd5e1; border-radius: 4px; height: 8px; overflow: hidden; width: 100%;">
+                                <div id="info-battery-bar" style="background: #10b981; width: 100%; height: 100%; transition: all 0.3s ease;"></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">✨ Dirt</span>
+                            <span class="status-value" id="info-dirt">--</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">💎 Reward</span>
+                            <span class="status-value" id="info-reward" style="color: var(--success);">0.0</span>
+                        </div>
+                        <div class="status-item full-width" style="flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 14px;">
+                            <span class="status-label">👣 Steps</span>
+                            <span class="status-value" style="font-size: 16px;" id="info-steps">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <div class="card-header">Simulation Control</div>
+                    <div class="button-group">
+                        <button onclick="compute()" class="primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            COMPUTE POLICY
+                        </button>
+                        <button onclick="step()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            STEP
+                        </button>
+                        <button id="btn-auto" onclick="toggleAuto()" class="accent">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                            AUTO RUN
+                        </button>
+                        <button onclick="reset()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                            RESET ENV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel log-panel" style="padding: 16px;">
+                    <div id="log"><div class="system">System initialized. Ready.</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const CELL_SIZE = 50;
+        let autoInterval = null;
+
+        function log(msg, type = '') {
+            const logDiv = document.getElementById('log');
+            const newLog = document.createElement('div');
+            if (type) newLog.className = type;
+            newLog.innerText = `> ${msg}`;
+            logDiv.appendChild(newLog);
+            
+            while (logDiv.children.length > 50) {
+                logDiv.removeChild(logDiv.firstChild);
+            }
+            
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        async function fetchState() {
+            try {
+                const res = await fetch('/state');
+                const data = await res.json();
+                document.getElementById('info-battery-text').innerText = `${data.battery} / 100 Wh`;
+                
+                const pct = Math.max(0, Math.min(100, (data.battery / 100) * 100));
+                const bar = document.getElementById('info-battery-bar');
+                bar.style.width = `${pct}%`;
+                if (pct > 50) bar.style.background = '#10b981';
+                else if (pct > 20) bar.style.background = '#f59e0b';
+                else bar.style.background = '#ef4444';
+                
+                let dirtCount = 0;
+                for(let i=0; i<32; i++) {
+                    if ((data.dirt_mask >> i) & 1) dirtCount++;
+                }
+                document.getElementById('info-dirt').innerText = dirtCount;
+                
+                document.getElementById('info-reward').innerText = data.reward.toFixed(1);
+                document.getElementById('info-steps').innerText = data.steps;
+                drawGrid(data);
+            } catch (e) {
+                console.error("Error fetching state:", e);
+            }
+        }
+
+        function drawGrid(data) {
+            const grid = data.grid;
+            const CELL_SIZE = 50;
+            
+            const parent = canvas.parentElement;
+            
+            // Prevent canvas from affecting parent's layout during measurement
+            const origDisplay = canvas.style.display;
+            canvas.style.display = 'none';
+            
+            const maxWidth = parent.clientWidth - 48; // padding
+            const maxHeight = parent.clientHeight - 80; // padding + legend
+            
+            canvas.style.display = origDisplay;
+            
+            const maxCellsW = grid[0].length;
+            const maxCellsH = grid.length;
+            
+            const scaleW = maxWidth / (maxCellsW * CELL_SIZE);
+            const scaleH = maxHeight / (maxCellsH * CELL_SIZE);
+            
+            const scale = Math.min(1.5, Math.min(scaleW, scaleH));
+            
+            canvas.width = grid[0].length * CELL_SIZE * scale;
+            canvas.height = grid.length * CELL_SIZE * scale;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.scale(scale, scale);
+
+            // Draw background
+            ctx.fillStyle = '#f1f5f9';
+            ctx.fillRect(0, 0, grid[0].length * CELL_SIZE, grid.length * CELL_SIZE);
+            
+            for(let r = 0; r < grid.length; r++) {
+                for(let c = 0; c < grid[r].length; c++) {
+                    const cell = grid[r][c];
+                    
+                    const x = c * CELL_SIZE;
+                    const y = r * CELL_SIZE;
+                    const pad = 3;
+                    const size = CELL_SIZE - pad * 2;
+
+                    // Grid cell base (rounded rect)
+                    ctx.beginPath();
+                    ctx.roundRect(x + pad, y + pad, size, size, 8);
+
+                    if (cell.is_wall && !cell.is_cat) {
+                        ctx.fillStyle = '#94a3b8';
+                        ctx.fill();
+                    } else if (cell.is_wet) {
+                        ctx.fillStyle = '#e0f2fe';
+                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fill();
+                    }
+                    
+                    // Draw Dock
+                    if (cell.char === 'B') {
+                        ctx.beginPath();
+                        ctx.roundRect(x + 10, y + 10, 30, 30, 6);
+                        ctx.fillStyle = '#10b981';
+                        ctx.fill();
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 10px Inter';
+                        ctx.fillText('DOCK', x + 11, y + 29);
+                    }
+                    
+                    // Draw Dirt
+                    if (cell.is_dirty) {
+                        // stylized dust specs
+                        ctx.fillStyle = '#b45309'; // brownish
+                        ctx.globalAlpha = 0.6;
+                        ctx.beginPath(); ctx.arc(x + 25, y + 25, 6, 0, 2*Math.PI); ctx.fill();
+                        ctx.beginPath(); ctx.arc(x + 20, y + 30, 4, 0, 2*Math.PI); ctx.fill();
+                        ctx.beginPath(); ctx.arc(x + 30, y + 20, 3, 0, 2*Math.PI); ctx.fill();
+                        ctx.globalAlpha = 1.0;
+                    }
+
+                    // Draw Cat
+                    if (cell.is_cat) {
+                        ctx.fillStyle = '#f97316';
+                        ctx.beginPath();
+                        ctx.arc(x + 25, y + 28, 10, 0, 2*Math.PI);
+                        ctx.fill();
+                        // ears
+                        ctx.beginPath();
+                        ctx.moveTo(x + 15, y + 25);
+                        ctx.lineTo(x + 18, y + 15);
+                        ctx.lineTo(x + 22, y + 20);
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.moveTo(x + 35, y + 25);
+                        ctx.lineTo(x + 32, y + 15);
+                        ctx.lineTo(x + 28, y + 20);
+                        ctx.fill();
+                    }
+                }
+            }
+            
+            // Draw robot
+            const [rx, ry] = data.robot_pos;
+            const cx = ry * CELL_SIZE + CELL_SIZE/2;
+            const cy = rx * CELL_SIZE + CELL_SIZE/2;
+            
+            // Glow effect
+            const glow = ctx.createRadialGradient(cx, cy, 10, cx, cy, 25);
+            glow.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+            glow.addColorStop(1, 'rgba(59, 130, 246, 0)');
+            ctx.fillStyle = glow;
+            ctx.beginPath(); ctx.arc(cx, cy, 25, 0, 2*Math.PI); ctx.fill();
+            
+            // Main body
+            ctx.beginPath();
+            ctx.arc(cx, cy, 14, 0, 2 * Math.PI);
+            ctx.fillStyle = '#3b82f6';
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
+            
+            // Inner dot
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, 2 * Math.PI);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            
+            ctx.restore();
+        }
+
+        async function compute() {
+            log("Computing Policy... please wait.", "system");
+            try {
+                const res = await fetch('/compute', { method: 'POST' });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    log(`Converged in ${data.time.toFixed(2)}s (${data.iterations} iters)`, "system");
+                } else {
+                    log(`Error: ${data.message}`, "error");
+                }
+            } catch(e) {
+                log(`Server error during compute.`, "error");
+            }
+        }
+
+        async function step() {
+            try {
+                const res = await fetch('/step', { method: 'POST' });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    log(`[${data.action}] ${data.event} (R=${data.reward})`);
+                    await fetchState();
+                    if (data.is_done) {
+                        log("DONE. Simulation Ended.", "system");
+                        if (autoInterval) toggleAuto();
+                    }
+                } else {
+                    log(`Error: ${data.message}`, "error");
+                    if (autoInterval) toggleAuto();
+                }
+            } catch(e) {
+                log(`Server error during step.`, "error");
+                if (autoInterval) toggleAuto();
+            }
+        }
+
+        function toggleAuto() {
+            const btn = document.getElementById('btn-auto');
+            if (autoInterval) {
+                clearInterval(autoInterval);
+                autoInterval = null;
+                btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> AUTO RUN`;
+                btn.classList.remove("active-toggle");
+                btn.classList.add("accent");
+                log("Auto run stopped.", "system");
+            } else {
+                autoInterval = setInterval(step, 200);
+                btn.innerHTML = `STOP AUTO`;
+                btn.classList.remove("accent");
+                btn.classList.add("active-toggle");
+                log("Auto run started.", "system");
+            }
+        }
+
+        async function reset() {
+            await fetch('/reset', { method: 'POST' });
+            if (autoInterval) toggleAuto();
+            document.getElementById('log').innerHTML = '<div class="system">System initialized. Ready.</div>';
+            await fetchState();
+        }
+
+        // Init
+        fetchState();
+    </script>
+</body>
+</html>

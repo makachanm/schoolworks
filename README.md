@@ -1,4 +1,3 @@
-# JBNU-CS-SchoolWorks
+# Schoolworks
 
-backed up from my personal server. 
-including toolchain setups.
+homework collection for Jeonbuk National Univ CS class.

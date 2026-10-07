@@ -1,0 +1,16 @@
+[project]
+name = "cat-robot-mdp-starter"
+version = "0.1.0"
+description = "MDP Robot Vacuum Assignment Starter Code"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=3.0.0",
+]
+
+[project.scripts]
+cli = "main_cli:main"
+web = "main_web:app.run"
+
+[tool.uv]
+package = false

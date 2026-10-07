@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>인공지능 과제 4 안내문</title>
+  <style>
+    :root {
+      --text-main: #222222;
+      --text-muted: #555555;
+      --border-light: #e0e0e0;
+      --border-dark: #666666;
+      --bg-header: #f8f9fa;
+      --bg-note: #fdfbf7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: var(--text-main);
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .document {
+      max-width: 940px;
+      margin: 40px auto;
+      padding: 0 40px 60px;
+    }
+
+    .doc-header {
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+    }
+
+    .header-meta {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .doc-title {
+      font-size: 29px;
+      font-weight: 700;
+      margin: 0 0 15px 0;
+      line-height: 1.3;
+    }
+
+    .doc-summary {
+      font-size: 16px;
+      margin: 0 0 20px 0;
+      color: var(--text-main);
+    }
+
+    .doc-section {
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      font-size: 21px;
+      font-weight: 700;
+      margin: 0 0 15px 0;
+      padding-top: 30px;
+      color: var(--text-main);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 30px 0 10px 0;
+    }
+
+    p {
+      margin: 0 0 15px 0;
+    }
+
+    ul {
+      margin: 0 0 15px 0;
+      padding-left: 25px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .info-table, .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      border-top: 2px solid var(--border-dark);
+      border-bottom: 2px solid var(--border-dark);
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--bg-header);
+      font-weight: 600;
+    }
+
+    .info-table th {
+      width: 22%;
+    }
+
+    .data-table th:first-child {
+      width: 12%;
+    }
+
+    .data-table th:nth-child(2) {
+      width: 28%;
+    }
+
+    code {
+      font-family: "Consolas", monospace;
+      font-size: 14.5px;
+      background-color: #f4f4f4;
+      padding: 2px 4px;
+      border-radius: 3px;
+      color: #333;
+    }
+
+    .note-box {
+      background-color: var(--bg-note);
+      border: 1px solid #eaddc5;
+      padding: 15px 20px;
+      margin: 20px 0;
+    }
+
+    .note-box strong {
+      display: inline-block;
+      margin-bottom: 5px;
+      color: #9c6500;
+    }
+
+    .mac-terminal {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 15px 0 10px 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border: 1px solid #333;
+    }
+
+    .mac-terminal-header {
+      background-color: #323233;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .mac-dots {
+      display: flex;
+      gap: 7px;
+      z-index: 1;
+    }
+
+    .mac-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .mac-dot.red { background-color: #ff5f56; }
+    .mac-dot.yellow { background-color: #ffbd2e; }
+    .mac-dot.green { background-color: #27c93f; }
+
+    .mac-title {
+      color: #999;
+      font-size: 14px;
+      font-family: Pretendard, sans-serif;
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .mac-terminal-body {
+      padding: 16px 20px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 15px;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .mac-terminal-body .prompt {
+      color: #38bdf8;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+
+    .mac-terminal-body .cmd {
+      color: #f8fafc;
+    }
+
+    .code-desc {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      margin-bottom: 20px;
+      margin-left: 2px;
+    }
+
+    .task-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 20px 25px;
+      margin-bottom: 18px;
+      background-color: #ffffff;
+    }
+
+    .task-box h3 {
+      margin-top: 0;
+      padding-top: 0;
+      color: #0f172a;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .task-box p:last-child,
+    .task-box ul:last-child {
+      margin-bottom: 0;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 18px;
+      margin: 18px 0 10px 0;
+    }
+
+    .image-box {
+      border: 1px solid var(--border-light);
+      background-color: #fff;
+      padding: 12px;
+    }
+
+    .image-box img {
+      width: 100%;
+      display: block;
+      border: 1px solid #efefef;
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 820px) {
+      .document {
+        margin: 20px auto;
+        padding: 0 18px 40px;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body { background-color: #fff; }
+      .document { margin: 0; padding: 20px; max-width: 100%; }
+      .doc-section, .task-box, .image-box { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="document">
+
+    <header class="doc-header">
+      <div class="header-meta">2026학년도 1학기 인공지능</div>
+      <h1 class="doc-title">과제 4: 고양이가 있는 스마트홈 로봇청소기 MDP 구현</h1>
+      <p class="doc-summary">본 과제는 <strong>Markov Decision Process (MDP)</strong>의 핵심 구성 요소인 상태 공간, 전이 확률, 보상 함수, 종료 조건을 직접 정의하고, 이를 바탕으로 <strong>Value Iteration</strong>과 <strong>Policy Iteration</strong>을 구현해 최적 정책을 계산하는 실습입니다. 학생은 제공된 시뮬레이터를 수정하는 것이 아니라, <strong>tasks/</strong> 내부의 task 파일을 순차적으로 완성하는 방식으로 과제를 수행합니다.</p>
+
+      <h3>핵심 요약</h3>
+      <table class="info-table">
+        <tr>
+          <th>마감일</th>
+          <td>추후 LMS 또는 수업 공지 기준</td>
+        </tr>
+        <tr>
+          <th>구현 파일</th>
+          <td><code>tasks/task1_states.py</code> ~ <code>tasks/task9_policy_iteration.py</code></td>
+        </tr>
+        <tr>
+          <th>보고서 템플릿</th>
+          <td><code>docs/01. report_template.docx</code> 제공</td>
+        </tr>
+        <tr>
+          <th>제출 파일명</th>
+          <td><code>분반_학번_이름_AI과제4.zip</code> 권장</td>
+        </tr>
+        <tr>
+          <th>실행 파일</th>
+          <td><code>main_cli.py</code>, <code>main_web.py</code>, <code>tools/test_planners.py</code>, <code>tools/verify_performance.py</code></td>
+        </tr>
+        <tr>
+          <th>수정 가능 범위</th>
+          <td style="color: #c92a2a; font-weight: 700;"><code>tasks/</code> 내부 task 파일만 수정 권장, <code>core/</code> 및 메인 실행 파일 수정 금지</td>
+        </tr>
+        <tr>
+          <th>권장 구현 순서</th>
+          <td>Task 1~4 (MDP 모델링) → Task 5~6 (Value Iteration) → Task 7~9 (Policy Iteration)</td>
+        </tr>
+        <tr>
+          <th>개발 환경</th>
+          <td>Python 3.10 이상, <code>uv sync</code> 후 실행 권장</td>
+        </tr>
+      </table>
+    </header>
+
+    <section class="doc-section">
+      <h2>1. 과제 개요</h2>
+      <p>이번 과제에서는 로봇청소기가 확률적인 격자 환경에서 어떻게 행동해야 하는지를 MDP로 모델링합니다. 단순히 코드를 완성하는 것이 아니라, 어떤 상태가 필요한지, 이동이 왜 확률적이어야 하는지, 보상을 어떻게 설계해야 바람직한 행동이 유도되는지를 함께 고민하는 것이 핵심입니다.</p>
+      <p>과제는 총 9개의 task로 나뉘며, 앞의 4개 task에서 MDP의 기본 요소를 정의하고, 이후 Value Iteration과 Policy Iteration으로 최적 정책을 계산하는 순서로 진행됩니다.</p>
+    </section>
+
+    <section class="doc-section">
+      <h2>2. 고양이와 영향권 규칙</h2>
+      <p>이번 과제에서 고양이는 단순한 배경 장식이 아니라, 로봇의 정책을 어렵게 만드는 핵심 확률 요소입니다. 맵에서 <code>K</code> 로 표시되는 칸은 <strong>고양이 중심 칸</strong>이며, 그 주변 상하좌우 1칸까지를 <strong>고양이 영향권</strong>으로 봅니다.</p>
+      <ul>
+        <li>고양이 중심 칸은 사실상 장애물처럼 취급됩니다. 로봇은 그 칸으로 안정적으로 들어가는 것이 아니라, 부딪히거나 밀려나거나 제자리에 멈출 수 있습니다.</li>
+        <li>고양이 영향권에서는 이동이 불안정해집니다. 의도한 방향으로 갈 확률이 낮아지고, 제자리 유지 또는 주변 칸으로 밀려나는 경우가 생깁니다.</li>
+        <li>특히 고양이 중심에 매우 가까운 위치일수록 간섭이 더 강합니다. 즉, 중심 칸과 주변 칸은 같은 위험 구역이 아니라 <strong>간섭 강도가 다른 두 단계의 확률 구역</strong>으로 이해하면 됩니다.</li>
+        <li>먼지는 고양이 주변에 다시 생길 수 있습니다. 이 과제에서는 고양이 영향권에 있는 먼지 위치에 대해 재오염 확률이 추가되므로, 한 번 청소했다고 해서 항상 영구적으로 깨끗해지는 것은 아닙니다.</li>
+      </ul>
+
+      <div class="note-box">
+        <strong>학생이 특히 주의할 점</strong><br>
+        Task 3에서는 이동 확률과 재오염 확률을 한꺼번에 섞어 생각하면 구현이 꼬이기 쉽습니다. 먼저 <strong>이동 / 청소 / 충전의 기본 결과</strong>를 만들고, 그 다음에 필요한 경우 <strong>재오염 확률</strong>을 별도로 결합하는 순서로 구현하는 것이 안전합니다.
+      </div>
+
+      <p>또한 이번 과제의 고양이는 <strong>움직이지 않는 고정 장애물</strong>입니다. 만약 고양이의 좌표까지 매 턴 바뀌게 만들면 상태 공간이 급격히 커져서, 지금과 같은 tabular Value Iteration이나 Policy Iteration으로 다루기 훨씬 어려워집니다. 즉, 고양이는 강화학습에서 말하는 <strong>상태 공간 폭발</strong>을 설명하기 위한 교육용 장치이기도 합니다.</p>
+    </section>
+
+    <section class="doc-section">
+      <h2>3. 실행 화면 예시</h2>
+      <p>아래 이미지는 실제 웹 시뮬레이터를 실행한 뒤 캡처한 화면입니다. 학생은 정책 계산 결과가 실제로 어떻게 반영되는지 GUI를 통해 직관적으로 확인할 수 있습니다.</p>
+
+      <div class="image-grid">
+        <div class="image-box">
+          <img src="docs/assets/web_gui_overview.png" alt="웹 GUI 전체 화면">
+          <div class="image-caption">웹 GUI 전체 화면: 맵, 먼지, 고양이, 젖은 바닥, 로봇 위치를 함께 확인할 수 있습니다.</div>
+        </div>
+        <div class="image-box">
+          <img src="docs/assets/web_gui_controls.png" alt="상태 및 제어 패널">
+          <div class="image-caption">상태 및 제어 패널: <code>COMPUTE POLICY</code>, <code>STEP</code>, <code>AUTO RUN</code> 버튼으로 시뮬레이션을 검증합니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>4. 실행 방법</h2>
+      <p>아래 순서대로 환경을 준비하고 CLI 또는 웹 GUI로 과제를 검증하십시오.</p>
+
+      <h3>가. 의존성 설치</h3>
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv sync</span></div>
+      </div>
+
+      <h3>나. CLI 실행</h3>
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python main_cli.py</span></div>
+      </div>
+      <div class="code-desc">정책 계산 후 터미널에서 로봇의 진행 상황을 자동으로 확인합니다.</div>
+
+      <h3>다. 웹 GUI 실행</h3>
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python main_web.py</span></div>
+      </div>
+      <div class="code-desc">브라우저에서 <code>http://127.0.0.1:5050</code> 에 접속합니다.</div>
+
+      <div class="note-box">
+        <strong>주의</strong><br>
+        <code>COMPUTE POLICY</code> 버튼은 내부적으로 Value Iteration과 Policy Extraction을 호출합니다. 따라서 최소한 Task 5와 Task 6이 구현되어야 웹 GUI가 정상 동작합니다.
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>5. 보고서 작성 안내</h2>
+      <p>이번 과제는 코드 구현뿐 아니라, 본인이 설계한 MDP와 실험 결과를 간단한 보고서 형태로 정리하는 것을 권장합니다. 패키지에는 이전 과제 스타일을 참고하여 정리한 <code>docs/01. report_template.docx</code> 가 포함되어 있습니다.</p>
+      <ul>
+        <li>보고서에는 상태 정의, terminal 조건, 전이 모델, 보상 함수, Value Iteration 결과, Policy Iteration 결과를 모두 반영하십시오.</li>
+        <li>웹 GUI 또는 CLI 실행 결과 캡처를 최소 1장 이상 첨부하는 것을 권장합니다.</li>
+        <li><code>tools/test_planners.py</code> 또는 <code>tools/verify_performance.py</code> 결과를 요약하여 포함하면 더 좋습니다.</li>
+        <li>생성형 AI를 사용했다면 보고서 마지막에 사용 내역과 검증 여부를 함께 기재하십시오.</li>
+      </ul>
+
+      <div class="note-box">
+        <strong>권장 보고서 파일명</strong><br>
+        <code>분반_학번_이름_보고서.pdf</code><br>
+        <span style="color:#555;">초안은 <code>docs/01. report_template.docx</code>로 작성하고, 최종 제출은 PDF 변환을 권장합니다.</span>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>6. 권장 수행 순서</h2>
+
+      <div class="task-box">
+        <h3>단계 1. MDP 모델링 먼저 완성</h3>
+        <ul>
+          <li>Task 1: 상태 공간 생성</li>
+          <li>Task 2: 종료 조건 정의</li>
+          <li>Task 3: 전이 확률 구현</li>
+          <li>Task 4: 보상 함수 구현</li>
+        </ul>
+        <p>이 단계가 끝나야 Bellman update에 필요한 <code>S</code>, <code>T</code>, <code>R</code>이 모두 준비됩니다.</p>
+      </div>
+
+      <div class="task-box">
+        <h3>단계 2. Value Iteration으로 정책 계산</h3>
+        <ul>
+          <li>Task 5: Value Iteration</li>
+          <li>Task 6: Policy Extraction</li>
+        </ul>
+        <p>이 단계가 끝나면 <code>main_cli.py</code> 와 <code>main_web.py</code> 에서 정책 기반 시뮬레이션이 가능해집니다.</p>
+      </div>
+
+      <div class="task-box">
+        <h3>단계 3. Policy Iteration까지 확장</h3>
+        <ul>
+          <li>Task 7: Q-value 계산</li>
+          <li>Task 8: Policy Evaluation</li>
+          <li>Task 9: Policy Iteration</li>
+        </ul>
+        <p>최종적으로 <code>tools/test_planners.py</code> 를 통해 Value Iteration과 Policy Iteration 결과를 비교할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>7. Task별 구현 내용</h2>
+      <table class="data-table">
+        <tr>
+          <th>Task</th>
+          <th>파일</th>
+          <th>핵심 구현 내용</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td><code>task1_states.py</code></td>
+          <td><code>(x, y, dirt_mask, battery)</code> 형태의 모든 유효 상태 생성</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><code>task2_terminal.py</code></td>
+          <td>배터리 방전 또는 모든 먼지 청소 후 복귀 시 종료</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><code>task3_transitions.py</code></td>
+          <td>이동, 청소, 충전에 대한 확률적 전이와 재오염 반영</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><code>task4_reward.py</code></td>
+          <td>이벤트별 보상 및 페널티 설계</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><code>task5_value_iteration.py</code></td>
+          <td>Bellman optimality update 반복 및 수렴 판정</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><code>task6_policy_extraction.py</code></td>
+          <td>최종 가치 함수로부터 최적 행동 추출</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><code>task7_q_values.py</code></td>
+          <td><code>Q(s, a)</code> 기대값 계산</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><code>task8_policy_evaluation.py</code></td>
+          <td>고정 정책에 대한 <code>V^pi(s)</code> 계산</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><code>task9_policy_iteration.py</code></td>
+          <td>정책 평가와 정책 개선 반복</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="doc-section">
+      <h2>8. 단계별 검증 방법</h2>
+
+      <h3>가. Task 1~4 이후</h3>
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python -c "from core.environment import GridWorld; from core.student_wrapper import StudentMDP; env=GridWorld(); mdp=StudentMDP(env); print('base=', env.base_station, 'dirt=', len(env.dirt_positions)); print('num_states=', len(mdp.get_all_states()))"</span></div>
+      </div>
+
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python -c "from core.environment import GridWorld; from core.student_wrapper import StudentMDP; from core.config import Action; env=GridWorld(); mdp=StudentMDP(env); s=(env.base_station[0], env.base_station[1], env.initial_dirt_mask, 100); print(mdp.get_transitions(s, Action.RIGHT)[:5])"</span></div>
+      </div>
+
+      <h3>나. Task 5~6 이후</h3>
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python main_cli.py</span></div>
+      </div>
+
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python main_web.py</span></div>
+      </div>
+
+      <h3>다. Task 7~9 이후</h3>
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python tools/test_planners.py</span></div>
+      </div>
+
+      <div class="mac-terminal">
+        <div class="mac-terminal-header">
+          <div class="mac-dots">
+            <span class="mac-dot red"></span>
+            <span class="mac-dot yellow"></span>
+            <span class="mac-dot green"></span>
+          </div>
+          <div class="mac-title">Terminal</div>
+        </div>
+        <div class="mac-terminal-body"><span class="prompt">$</span><span class="cmd">uv run python tools/verify_performance.py</span></div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>9. 구현 시 주의사항</h2>
+      <ul>
+        <li>상태 공간에서 벽 좌표는 포함하지 마십시오.</li>
+        <li><code>CHARGE</code> 행동은 충전소에서만 유효해야 합니다.</li>
+        <li>청소 성공 시 배터리 소모량과 이동 시 배터리 소모량 차이를 코드 흐름에서 확인하십시오.</li>
+        <li>확률적 이동과 재오염은 서로 다른 단계의 확률 분기입니다.</li>
+        <li>terminal state에서는 가능한 행동과 정책이 자연스럽게 비어야 합니다.</li>
+      </ul>
+
+      <div class="note-box">
+        <strong>참고</strong><br>
+        이번 과제의 핵심은 단순한 문법 구현이 아니라, 왜 이 상태 표현이 필요한지, 왜 이 보상 설계가 합리적인지, 어떤 정책이 실제로 유도되는지를 함께 해석하는 데 있습니다.
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>10. 생성형 AI 활용 원칙</h2>
+      <p>본 강의는 생성형 AI 도구의 사용을 무조건적으로 금지하지는 않으나, <strong>책임감 있는 사용과 철저한 검증</strong>을 엄격히 요구합니다. 이번 과제는 MDP 모델링과 Dynamic Programming의 핵심 논리를 스스로 이해했는지 평가하기 위한 것이므로, 단순 복붙 형태의 사용은 권장되지 않습니다.</p>
+      <ul>
+        <li>ChatGPT, Claude, Copilot 등 생성형 AI를 사용했다면 어떤 task 또는 어떤 함수 수준에서 도움을 받았는지 반드시 기록하십시오.</li>
+        <li>AI가 제안한 상태 표현, 전이 식, 보상 로직, Bellman update 코드를 사용했다면 본인이 그 이유와 동작을 직접 설명할 수 있어야 합니다.</li>
+        <li>AI가 작성한 코드를 그대로 제출한 뒤 해당 로직을 설명하지 못하는 경우, 코드 리뷰나 구두 확인에서 큰 감점 또는 부정행위로 간주될 수 있습니다.</li>
+        <li>AI는 디버깅 보조, 개념 요약, 반례 점검, 의사코드 정리에 활용하고, 최종 구현과 검증은 반드시 본인이 수행하십시오.</li>
+        <li>생성형 AI를 전혀 사용하지 않았다면 사용 내역에 <strong>"해당 없음"</strong>으로 명시하십시오.</li>
+      </ul>
+
+      <div class="note-box">
+        <strong>권장 기재 방식</strong><br>
+        보고서나 제출 메모 마지막에 예를 들어 <code>Task 5 수렴 조건 점검에 ChatGPT 사용, 최종 코드는 직접 수정 및 검증 완료</code> 와 같이 짧게 남기면 됩니다.
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>11. 제출 파일 형식</h2>
+      <p>특별한 추가 공지가 없다면, 학생이 직접 구현한 내용을 <strong>단일 ZIP 파일</strong>로 묶어 제출하는 형태를 권장합니다. 이번 패키지 구조상 가장 자연스러운 제출 방식은 <code>보고서 PDF + tasks/</code> 폴더 전체를 함께 포함하는 것입니다.</p>
+
+      <div class="note-box">
+        <strong>권장 제출 파일명</strong><br>
+        <code>분반_학번_이름_AI과제4.zip</code>
+      </div>
+
+      <div class="note-box">
+        <strong>권장 압축 구조 예시</strong><br><br>
+        <code>분반_학번_이름_AI과제4.zip</code><br>
+        <code> ├── 분반_학번_이름_보고서.pdf</code><br>
+        <code> └── tasks/</code><br>
+        <code style="margin-left: 30px;">├── task1_states.py</code><br>
+        <code style="margin-left: 30px;">├── task2_terminal.py</code><br>
+        <code style="margin-left: 30px;">├── task3_transitions.py</code><br>
+        <code style="margin-left: 30px;">├── task4_reward.py</code><br>
+        <code style="margin-left: 30px;">├── task5_value_iteration.py</code><br>
+        <code style="margin-left: 30px;">├── task6_policy_extraction.py</code><br>
+        <code style="margin-left: 30px;">├── task7_q_values.py</code><br>
+        <code style="margin-left: 30px;">├── task8_policy_evaluation.py</code><br>
+        <code style="margin-left: 30px;">└── task9_policy_iteration.py</code>
+      </div>
+
+      <ul>
+        <li>추가 공지가 없다면 <code>core/</code> 전체를 다시 압축하기보다, 학생이 구현한 <code>tasks/</code> 폴더와 보고서 PDF 중심 제출이 더 명확합니다.</li>
+        <li>생성형 AI를 사용했다면 사용 내역은 ZIP 내부 별도 메모 파일 또는 LMS 제출 메모에 함께 남기십시오.</li>
+        <li>마감 시각과 제출 방식이 LMS 공지와 다를 경우, 반드시 <strong>LMS 공지의 최신 버전</strong>을 따르십시오.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section">
+      <h2>12. 제출 전 체크리스트</h2>
+      <ul>
+        <li><code>tasks/</code> 내부 9개 파일의 <code>NotImplementedError</code> 가 모두 제거되었는가</li>
+        <li>CLI가 끝까지 정상 실행되는가</li>
+        <li>웹 GUI에서 <code>COMPUTE POLICY</code> 이후 <code>STEP</code> 또는 <code>AUTO RUN</code> 이 동작하는가</li>
+        <li><code>tools/test_planners.py</code> 가 Value Iteration과 Policy Iteration을 모두 수행하는가</li>
+        <li>생성형 AI를 사용했다면 사용 범위와 검증 여부를 제출물에 함께 명시했는가</li>
+        <li>보고서 PDF가 포함되어 있는가</li>
+        <li>제출 ZIP 파일명과 내부 구조가 공지 형식을 따르고 있는가</li>
+      </ul>
+    </section>
+
+  </div>
+</body>
+</html>

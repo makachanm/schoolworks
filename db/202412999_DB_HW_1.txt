@@ -1,0 +1,18 @@
+select user_name, join_date from Users where email like '%email.com%' and join_date > '2026-1-1' order by join_date asc;
+select title, genre, rating from Contents where (genre = 'Action' or genre = 'Thriller') and rating > 9.0;
+select genre, avg(rating) as avg_rate from Contents group by genre having count(genre) >= 2;
+select user_id from Users except select user_id from Users where membership_type = 'Premium';
+select membership_type, sum(fee) as Total_Revenue from Users group by membership_type order by Total_Revenue desc;
+create table movies (movie_id int primary key, title varchar(100), genre varchar(30), director varchar(50), release_year int, ticket_price int);
+create table users(viewer_id varchar(20) primary key, viewer_name varchar(50), city varchar(30), grade varchar(20));
+create table reservation(reserve_id int primary key, viewer_id varchar(20), movie_id int, reserve_date date, pos int, foreign key(viewer_id) references users(viewer_id), foreign key(movie_id) references movies(movie_id));
+select genre, count(genre) as counts from movies group by genre order by counts desc;
+select u.viewer_name, m.title, r.pos as seat_count from users as u, movies as m, reservation as r where r.pos >= 2 and r.movie_id = m.movie_id and r.viewer_id = u.viewer_id;
+select player_name, salary from Players where batting_avg is null order by salary desc;
+select * from Players where position = 'Infielder' and player_name like '%지%';
+select team_id, avg(salary) as avg_salary from Players group by team_id having count(*) >= 2;
+select p.player_name, p.position, t.team_name from Players as p, Teams as t where t.home_city = 'Seoul' and p.team_id = t.team_id;
+select salary/12 as monthly_salary from Players where (salary >= 20000 or salary <= 60000) and batting_avg is not null;
+
+
+
